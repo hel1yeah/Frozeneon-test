@@ -1,4 +1,4 @@
-import { getPackageFiles } from './../../api/packages';
+import { getPackageList } from './../../api/algoliasearch';
 
 export default {
   namespaced: true,
@@ -27,13 +27,13 @@ export default {
     },
   },
   actions: {
-    getPackageList({ commit }, value) {
+    searchPackages({ commit }, value) {
       return new Promise(() => {
         commit('packagesListStart');
-        getPackageFiles(value)
-          .then(({ data }) => {
-            console.log(data);
-            commit('packagesListSuccess', data);
+        getPackageList(value)
+          .then(({ hits }) => {
+            console.log(hits);
+            commit('packagesListSuccess', hits);
           })
           .catch((err) => {
             commit('packagesListFailure', err);

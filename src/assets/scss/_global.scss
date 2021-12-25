@@ -15,6 +15,31 @@ li {
 }
 
 .container {
-  max-width: 1270px;
+  max-width: 1170px;
   padding: 10px 20px;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before {
+  display: none;
+}
+.v-text-field > .v-input__control > .v-input__slot:after {
+  display: none;
+}
+
+.search .v-text-field__details {
+  display: none;
+}
+
+.search .v-text-field {
+  margin: 0;
+  padding: 0;
+}
+
+.search .v-input__slot {
+  margin: 0;
+  padding: 0;
+}
+
+.v-input__prepend-outer {
+  margin-right: 5px;
 }

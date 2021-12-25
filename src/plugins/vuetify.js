@@ -1,9 +1,13 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
+import 'vuetify/lib/components';
 
 Vue.use(Vuetify);
 
-const opts = {};
+const opts = {
+  icons: {
+    iconfont: 'mdi',
+  },
+};
 
 export default new Vuetify(opts);
