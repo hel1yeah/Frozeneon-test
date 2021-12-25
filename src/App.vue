@@ -1,35 +1,36 @@
 <template>
-  <v-container>
-    <div class="loading" v-if="loading">{{ loading }}</div>
-    <div class="inner" v-else>
-      <div class="card" v-for="(pack, index) in packagesList" :key="index">
-        <div class="card__title">{{ pack.name }}</div>
-        <div class="card__sub-title">{{ pack.hits }}</div>
-        <div class="card__text">{{ pack.type }}</div>
-      </div>
-    </div>
-  </v-container>
+  <div id="app">
+    <app-main></app-main>
+    <app-footer></app-footer>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
+import AppFooter from './components/AppFooter.vue';
+import AppMain from './components/AppMain.vue';
 
 export default {
+  name: 'App',
+  components: {
+    AppFooter,
+    AppMain,
+  },
   data() {
     return {};
   },
-  methods: {
-    getPackages() {
-      this.$store.dispatch('packages/getPackagesList');
-    },
-  },
-  computed: mapState({
-    packagesList: (state) => state.packages.packagesList,
-    loading: (state) => state.packages.loading,
-  }),
-  created() {
-    this.getPackages();
-  },
+  // methods: {
+  //   getPackages() {
+  //     this.$store.dispatch('packages/getPackagesList');
+  //   },
+  // },
+  // computed: mapState({
+  //   packagesList: (state) => state.packages.packagesList,
+  //   loading: (state) => state.packages.loading,
+  // }),
+  // created() {
+  //   this.getPackages();
+  // },
 };
 </script>
 
@@ -52,3 +53,25 @@ export default {
   box-shadow: 0px 0px 10px var(--blue-clor);
 }
 </style>
+
+<!-- <div class="loading" v-if="loading">{{ loading }}</div> -->
+<!-- <div class="inner" v-else>
+    <div class="card" v-for="(pack, index) in packagesList" :key="index">
+      <div class="card__title">{{ pack.name }}</div>
+      <div class="card__sub-title">{{ pack.hits }}</div>
+      <div class="card__text">{{ pack.type }}</div>
+    </div>
+  </div> -->
+<!-- <v-row justify="center">
+    <v-col cols="8">
+      <v-container class="max-width">
+        <v-pagination
+          v-model="page"
+          class="my-4"
+          :length="limit"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+        ></v-pagination>
+      </v-container>
+    </v-col>
+  </v-row> -->

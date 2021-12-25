@@ -1,4 +1,4 @@
-import { getPackages } from './../../api/packages';
+import { getPackageFiles } from './../../api/packages';
 
 export default {
   namespaced: true,
@@ -27,10 +27,10 @@ export default {
     },
   },
   actions: {
-    getPackagesList({ commit }) {
+    getPackageList({ commit }, value) {
       return new Promise(() => {
         commit('packagesListStart');
-        getPackages()
+        getPackageFiles(value)
           .then(({ data }) => {
             console.log(data);
             commit('packagesListSuccess', data);
