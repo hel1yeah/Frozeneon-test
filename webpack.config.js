@@ -8,15 +8,16 @@ module.exports = {
           'css-loader',
           {
             loader: 'sass-loader',
-            
+
             options: {
               implementation: require('sass'),
-              indentedSyntax: true, 
+              indentedSyntax: true, // optional
+            },
 
             options: {
               implementation: require('sass'),
               sassOptions: {
-                indentedSyntax: true, 
+                indentedSyntax: true, // optional
               },
             },
           },
