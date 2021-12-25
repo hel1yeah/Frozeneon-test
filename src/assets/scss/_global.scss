@@ -43,3 +43,14 @@ li {
 .v-input__prepend-outer {
   margin-right: 5px;
 }
+
+.theme--light.v-pagination.v-pagination__item {
+  border: 1px solid #e5e5e5;
+  color: black;
+}
+
+.v-pagination__item--active {
+  color: #ff5627 !important;
+  border: 1px solid #ff5627 !important;
+  box-shadow: none !important;
+}

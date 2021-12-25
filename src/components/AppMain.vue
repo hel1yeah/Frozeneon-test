@@ -2,14 +2,14 @@
   <div class="main">
     <div class="container">
       <app-search></app-search>
-      <div class="wrapper">
+      <div class="wrapper" v-if="packagesList">
         <app-card
           v-for="(item, index) in packagesList"
           :key="index"
           :user="item"
         ></app-card>
+        <app-pagination></app-pagination>
       </div>
-      <app-pagination></app-pagination>
     </div>
   </div>
 </template>

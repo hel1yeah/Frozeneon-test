@@ -1,7 +1,8 @@
 <template>
-  <div class="text-center">
+  <div class="text-center app-pagination">
     <v-pagination
-      v-model="page"
+      :value="page"
+      @input="setPage($event)"
       :length="15"
       :total-visible="10"
     ></v-pagination>
@@ -9,13 +10,34 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
-      page: 1,
+      // page: '',
     };
   },
+  methods: {
+    setPage(value) {
+      this.$store.dispatch('packages/updatePage', value);
+      this.$store.dispatch('packages/searchPackages');
+    },
+  },
+  computed: {
+    // ...mapState({
+    //   page: (state) => state.packages.page,
+    // }),
+    page() {
+      return this.$store.state.packages.page;
+    },
+  },
+  mounted() {},
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.app-pagination {
+  margin: 20px 0 0;
+}
+</style>

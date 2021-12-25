@@ -5,6 +5,8 @@ export default {
   state() {
     return {
       packagesList: null,
+      page: 1,
+      serchText: '',
       error: null,
       loading: false,
     };
@@ -25,14 +27,19 @@ export default {
       state.error = payload;
       state.loading = false;
     },
+    updateSerchTextStart(state, payload) {
+      state.serchText = payload;
+    },
+    updatePageStart(state, payload) {
+      state.page = payload;
+    },
   },
   actions: {
-    searchPackages({ commit }, value) {
+    searchPackages({ commit, state }) {
       return new Promise(() => {
         commit('packagesListStart');
-        getPackageList(value)
+        getPackageList(state.serchText, state.page - 1)
           .then(({ hits }) => {
-            console.log(hits);
             commit('packagesListSuccess', hits);
           })
           .catch((err) => {
@@ -40,5 +47,15 @@ export default {
           });
       });
     },
+    updateSerchText({ commit }, payload) {
+      commit('updateSerchTextStart', payload);
+    },
+    updatePage({ commit }, payload) {
+      commit('updatePageStart', payload);
+    },
+  },
+  getters: {
+    serchText: (state) => state.serchText,
+    page: (state) => state.page,
   },
 };
