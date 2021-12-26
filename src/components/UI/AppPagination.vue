@@ -3,7 +3,7 @@
     <v-pagination
       :value="page"
       @input="setPage($event)"
-      :length="3"
+      :length="nbPages"
       :total-visible="10"
     >
     </v-pagination>
@@ -29,6 +29,7 @@ export default {
     ...mapGetters({
       page: 'packages/page',
       packagesList: 'packages/packagesList',
+      nbPages: 'packages/nbPages',
     }),
     allPages() {
       console.log(this.packagesList);

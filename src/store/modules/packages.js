@@ -9,6 +9,7 @@ export default {
       serchText: '',
       error: null,
       loading: false,
+      nbPages: null,
     };
   },
   mutations: {
@@ -29,7 +30,9 @@ export default {
       state.error = payload;
       state.loading = false;
     },
-
+    updateNbPagesStart(state, payload) {
+      state.nbPages = payload;
+    },
     updateSerchTextStart(state, payload) {
       state.serchText = payload;
     },
@@ -43,12 +46,13 @@ export default {
       return new Promise(() => {
         commit('packagesListStart');
         getPackageList(state.serchText, state.page - 1)
-          .then(({ hits }) => {
+          .then(({ hits, nbPages }) => {
             const errtext = 'No results found. Please enter a different value';
             if (Object.keys(hits).length === 0) {
               commit('packagesListFailure', errtext);
             } else {
               commit('packagesListSuccess', hits);
+              commit('updateNbPagesStart', nbPages);
             }
           })
           .catch((err) => {
@@ -70,5 +74,6 @@ export default {
     page: (state) => state.page,
     error: (state) => state.error,
     loading: (state) => state.loading,
+    nbPages: (state) => state.nbPages,
   },
 };
