@@ -3,14 +3,15 @@
     <v-pagination
       :value="page"
       @input="setPage($event)"
-      :length="15"
+      :length="3"
       :total-visible="10"
-    ></v-pagination>
+    >
+    </v-pagination>
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -25,12 +26,18 @@ export default {
     },
   },
   computed: {
-    // ...mapState({
-    //   page: (state) => state.packages.page,
-    // }),
-    page() {
-      return this.$store.state.packages.page;
+    ...mapState({
+      page: (state) => state.packages.page,
+      packagesList: (state) => state.packages.packagesList.length,
+    }),
+    allPages() {
+      console.log(this.packagesList);
+      console.log(Math.ceil(this.packagesList / 10));
+      return Math.ceil(this.packagesList / 10);
     },
+    // page() {
+    //   return this.$store.state.packages.page;
+    // },
   },
   mounted() {},
 };

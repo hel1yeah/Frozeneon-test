@@ -1,46 +1,151 @@
 <template>
-  <div>
-    <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="red lighten-2" dark v-bind="attrs" v-on="on">
-          Click Me
-        </v-btn>
-      </template>
-
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Privacy Policy
+  <div v-if="fileInfo">
+    <v-dialog :value="fileInfo !== null" width="500">
+      <v-card class="modal-card">
+        <v-card-title class="app-card-title modal-header">
+          <div class="modal-header--item">
+            <h2>{{ fileInfo.name }}</h2>
+          </div>
+          <div class="modal-header--item">
+            <v-chip label outlined v-if="fileInfo.version">
+              <v-icon size="14">mdi-tag</v-icon>
+              <span class="chip-margin">{{ fileInfo.version }}</span>
+            </v-chip>
+          </div>
+          <div class="modal-header--item">
+            <v-chip label outlined v-if="fileInfo.license">
+              <v-icon size="20">mdi-scale-balance</v-icon>
+              <span class="chip-margin">{{ fileInfo.license }}</span>
+            </v-chip>
+          </div>
         </v-card-title>
+        <div class="modal__owner">
+          <v-avatar size="20" tile class="avatar">
+            <img
+              :src="fileInfo.owner.avatar"
+              :alt="fileInfo.name"
+              height="100%"
+            />
+          </v-avatar>
+          <a
+            target="_blank"
+            class="modal__owner--name"
+            :href="fileInfo.owner.link"
+            >{{ fileInfo.owner.name }}</a
+          >
+        </div>
+        <div class="modal-header-subtile">
+          {{ fileInfo.description }}
+        </div>
+        <div class="keywords-wrapper modal-header__keywords">
+          <v-chip
+            label
+            outlined
+            class="keywords"
+            v-for="(key, index) in fileInfo.keywords"
+            :key="index"
+          >
+            {{ key }}
+          </v-chip>
+        </div>
+        <div class="modal-main__header">
+          <h4>{{ fileInfo.files.length }} Files</h4>
+          <span>v{{ fileInfo.version }} </span>
+        </div>
 
-        <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </v-card-text>
-
+        <div class="modal-main">
+          <div
+            class="modal-main__files"
+            v-for="(file, index) in fileInfo.files"
+            :key="index"
+          >
+            <div class="modal-main__files-name">{{ file.name }}</div>
+            <div class="modal-main__files-size" v-if="file.size">
+              {{ file.size }} kb
+            </div>
+          </div>
+        </div>
         <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false"> I accept </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
+  name: 'AppModal',
   data() {
     return {
-      dialog: false,
+      // dialog: true,
     };
+  },
+  computed: {
+    ...mapGetters({
+      fileInfo: 'modal/fileInfo',
+    }),
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.app-card-title {
+}
+.modal-card > h4 {
+  margin: 16px 24px;
+}
+.modal__owner {
+  margin: 5px 24px;
+  display: flex;
+  align-items: center;
+}
+.modal__owner--name {
+  margin: 0 0 0 10px;
+  font-size: 18px;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--red-color);
+}
+.modal-main__header {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 24px;
+}
+.modal-header--item {
+  margin: 0 15px 0 0;
+}
+
+.modal-header-subtile {
+  margin: 10px 24px;
+  font-size: 16px;
+}
+.modal-header__keywords {
+  margin: 16px 24px;
+}
+.modal-main {
+  border: 1px solid var(--red-color);
+  border-radius: 5px;
+  margin: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: auto;
+  max-height: 300px;
+}
+.modal-main__files {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 10px 0;
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-main__files-name {
+}
+</style>

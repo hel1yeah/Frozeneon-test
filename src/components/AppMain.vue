@@ -18,6 +18,7 @@
 import { mapState } from 'vuex';
 
 import AppCard from './AppCard.vue';
+
 import AppPagination from './AppPagination.vue';
 import AppSearch from './AppSearch.vue';
 export default {

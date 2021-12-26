@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <app-main></app-main>
-    <app-footer></app-footer>
+    <v-app>
+      <app-modal></app-modal>
+      <app-main></app-main>
+      <app-footer></app-footer>
+    </v-app>
   </div>
 </template>
 
@@ -9,12 +12,14 @@
 // import { mapState } from 'vuex';
 import AppFooter from './components/AppFooter.vue';
 import AppMain from './components/AppMain.vue';
+import AppModal from './components/AppModal.vue';
 
 export default {
   name: 'App',
   components: {
     AppFooter,
     AppMain,
+    AppModal,
   },
   data() {
     return {};

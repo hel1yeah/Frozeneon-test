@@ -19,7 +19,7 @@ const stdOptionsSearch = {
   ],
 };
 
-function getPackageList(queryString: string, page = 0, hitsPerPage = 10) {
+function getPackageList(queryString, page = 0, hitsPerPage = 10) {
   const options = { ...stdOptionsSearch, page, hitsPerPage };
   return algoliaIndex.search(queryString, options);
 }

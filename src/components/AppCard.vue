@@ -1,7 +1,7 @@
 <template>
   <div class="app-card">
     <div class="row">
-      <v-card-title class="col-sm-8 app-card-title">{{
+      <v-card-title @click="getFile(user)" class="app-card-title">{{
         user.name
       }}</v-card-title>
     </div>
@@ -46,6 +46,11 @@ export default {
       require: true,
     },
   },
+  methods: {
+    getFile(user) {
+      this.$store.dispatch('modal/getFile', user);
+    },
+  },
 };
 </script>
 
@@ -56,6 +61,9 @@ export default {
 }
 .app-card-title {
   font-weight: 700;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .keywords-wrapper {
   margin-top: 10px;
