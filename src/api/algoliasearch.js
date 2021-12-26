@@ -3,13 +3,24 @@ import { ALGOLIA_CONFIG } from '../config';
 
 const algolia = algoliasearch(
   ALGOLIA_CONFIG.applicationID,
-  ALGOLIA_CONFIG.apiKey,
-  { protocol: 'https:' }
+  ALGOLIA_CONFIG.apiKey
 );
 const algoliaIndex = algolia.initIndex('npm-search');
 
+const stdOptionsSearch = {
+  attributesToRetrieve: [
+    'description',
+    'homepage',
+    'keywords',
+    'license',
+    'name',
+    'owner',
+    'version',
+  ],
+};
+
 function getPackageList(queryString, page = 0, hitsPerPage = 10) {
-  const options = { page, hitsPerPage };
+  const options = { ...stdOptionsSearch, page, hitsPerPage };
   return algoliaIndex.search(queryString, options);
 }
 

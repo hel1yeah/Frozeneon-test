@@ -1,32 +1,73 @@
 <template>
   <div class="search">
     <v-text-field
-      label="Enter package name"
-      hide-details="auto"
-      v-model="serchText"
-    ></v-text-field>
+      placeholder="Enter package name"
+      prepend-icon="mdi-search-web"
+      color="#000"
+      height="40"
+      class="v-custom-input"
+      :value="serchText"
+      @input="updateSerchText"
+    >
+    </v-text-field>
   </div>
 </template>
 
 <script>
+import { debounce } from 'lodash';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AppSearch',
   data() {
-    return {
-      serchText: '',
-    };
+    return {};
   },
   methods: {
-    getPackageFiles(value) {
-      this.$store.dispatch('packages/getPackageList', value);
+    setUrl(value) {
+      this.$router.push({ path: 'search', query: { q: value } });
     },
+    updateSerchText(value) {
+      this.$store.dispatch('packages/updateSerchText', value);
+      this.getPackageList(value);
+    },
+    getPackageList: debounce(function (value) {
+      this.$store.dispatch('packages/searchPackages');
+      this.setUrl(value);
+    }, 500),
+  },
+  mounted() {
+    const isSearch = this.$route.path === '/search';
+    const isQuery = this.$route.query.q;
+
+    if (isSearch && isQuery.length > 0) {
+      this.updateSerchText(isQuery);
+    }
+  },
+  computed: {
+    ...mapGetters({
+      serchText: 'packages/serchText',
+    }),
   },
   watch: {
-    serchText: function (valueNew) {
-      this.getPackageFiles(valueNew);
-    },
+    // serchText: debounce(function (valueNew) {
+    //   this.getPackageFiles(valueNew);
+    //   this.setUrl(valueNew);
+    // }, 500),
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search {
+  width: 100%;
+  display: block;
+  padding: 10px 20px;
+  border: 1px solid #ff5627;
+  border-radius: 3px;
+  outline: 0;
+
+  .v-custom-input {
+    align-items: center;
+  }
+}
+</style>
