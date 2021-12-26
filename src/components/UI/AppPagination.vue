@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -26,9 +26,9 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      page: (state) => state.packages.page,
-      packagesList: (state) => state.packages.packagesList.length,
+    ...mapGetters({
+      page: 'packages/page',
+      packagesList: 'packages/packagesList',
     }),
     allPages() {
       console.log(this.packagesList);

@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex';
 import AppFooter from './components/AppFooter.vue';
 import AppMain from './components/AppMain.vue';
 import AppModal from './components/AppModal.vue';

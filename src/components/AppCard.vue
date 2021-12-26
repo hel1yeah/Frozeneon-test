@@ -9,7 +9,15 @@
       <v-avatar size="20" tile class="avatar">
         <img :src="user.owner.avatar" :alt="user.name" height="100%" />
       </v-avatar>
-      <v-card-text>{{ user.owner.name }}</v-card-text>
+
+      <v-card-text
+        ><a
+          target="_blank"
+          class="modal__owner--name"
+          :href="user.owner.link"
+          >{{ user.owner.name }}</a
+        ></v-card-text
+      >
       <v-chip label outlined v-if="user.version">
         <v-icon size="14">mdi-tag</v-icon>
         <span class="chip-margin">{{ user.version }}</span>

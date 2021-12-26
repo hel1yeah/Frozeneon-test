@@ -15,6 +15,7 @@
 
 <script>
 import { debounce } from 'lodash';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'AppSearch',
@@ -43,9 +44,9 @@ export default {
     }
   },
   computed: {
-    serchText() {
-      return this.$store.state.packages.serchText;
-    },
+    ...mapGetters({
+      serchText: 'packages/serchText',
+    }),
   },
   watch: {
     // serchText: debounce(function (valueNew) {
