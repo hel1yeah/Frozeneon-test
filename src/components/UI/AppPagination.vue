@@ -14,11 +14,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return {
-      // page: '',
-    };
-  },
+  name: 'AppPagination',
   methods: {
     setPage(value) {
       this.$store.dispatch('packages/updatePage', value);
@@ -28,19 +24,9 @@ export default {
   computed: {
     ...mapGetters({
       page: 'packages/page',
-      packagesList: 'packages/packagesList',
       nbPages: 'packages/nbPages',
     }),
-    allPages() {
-      console.log(this.packagesList);
-      console.log(Math.ceil(this.packagesList / 10));
-      return Math.ceil(this.packagesList / 10);
-    },
-    // page() {
-    //   return this.$store.state.packages.page;
-    // },
   },
-  mounted() {},
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <app-modal></app-modal>
-      <app-main></app-main>
+      <router-view></router-view>
       <app-footer></app-footer>
     </v-app>
   </div>
@@ -10,18 +10,13 @@
 
 <script>
 import AppFooter from './components/AppFooter.vue';
-import AppMain from './components/AppMain.vue';
 import AppModal from './components/AppModal.vue';
 
 export default {
   name: 'App',
   components: {
     AppFooter,
-    AppMain,
     AppModal,
-  },
-  data() {
-    return {};
   },
 };
 </script>
@@ -42,6 +37,6 @@ export default {
   height: 120px;
   padding: 20px 10px;
   margin: 9px;
-  box-shadow: 0px 0px 10px var(--blue-clor);
+  box-shadow: 0px 0px 10px var(--blue-color);
 }
 </style>

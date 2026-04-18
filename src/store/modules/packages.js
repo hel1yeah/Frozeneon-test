@@ -6,7 +6,7 @@ export default {
     return {
       packagesList: null,
       page: 1,
-      serchText: '',
+      searchText: '',
       error: null,
       loading: false,
       nbPages: null,
@@ -33,8 +33,8 @@ export default {
     updateNbPagesStart(state, payload) {
       state.nbPages = payload;
     },
-    updateSerchTextStart(state, payload) {
-      state.serchText = payload;
+    updateSearchTextStart(state, payload) {
+      state.searchText = payload;
     },
 
     updatePageStart(state, payload) {
@@ -42,38 +42,42 @@ export default {
     },
   },
   actions: {
-    searchPackages({ commit, state }) {
-      return new Promise(() => {
-        commit('packagesListStart');
-        getPackageList(state.serchText, state.page - 1)
-          .then(({ hits, nbPages }) => {
-            const errtext = 'No results found. Please enter a different value';
-            if (Object.keys(hits).length === 0) {
-              commit('packagesListFailure', errtext);
-            } else {
-              commit('packagesListSuccess', hits);
-              commit('updateNbPagesStart', nbPages);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            commit('packagesListFailure', err);
-          });
-      });
+    async searchPackages({ commit, state }) {
+      commit('packagesListStart');
+      try {
+        const { hits, nbPages } = await getPackageList(
+          state.searchText,
+          state.page - 1
+        );
+        if (!hits || hits.length === 0) {
+          commit(
+            'packagesListFailure',
+            'No results found. Please enter a different value'
+          );
+          return;
+        }
+        commit('packagesListSuccess', hits);
+        commit('updateNbPagesStart', nbPages);
+      } catch (err) {
+        const message = (err && err.message) || 'Failed to load packages';
+        commit('packagesListFailure', message);
+      }
     },
-    updateSerchText({ commit }, payload) {
-      commit('updateSerchTextStart', payload);
+    updateSearchText({ commit }, payload) {
+      commit('updateSearchTextStart', payload);
     },
     updatePage({ commit }, payload) {
       commit('updatePageStart', payload);
     },
   },
   getters: {
-    serchText: (state) => state.serchText,
+    searchText: (state) => state.searchText,
     packagesList: (state) => state.packagesList,
     page: (state) => state.page,
     error: (state) => state.error,
     loading: (state) => state.loading,
     nbPages: (state) => state.nbPages,
+    isDefaultView: (state) =>
+      !state.searchText || state.searchText.length === 0,
   },
 };

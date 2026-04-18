@@ -32,22 +32,16 @@ export default {
     },
   },
   actions: {
-    getFile({ commit }, user) {
-      return new Promise(() => {
-        commit('fileInfoStart');
-        getFileInfo(user)
-          .then(({ data }) => {
-            // console.log(data);
-            let newFile = { ...user, ...data };
-            commit('fileInfoSuccess', newFile);
-          })
-          .catch((err) => {
-            commit('fileInfoFailure', err);
-            setTimeout(() => {
-              commit('resetState');
-            }, 5000);
-          });
-      });
+    async getFile({ commit }, user) {
+      commit('fileInfoStart');
+      try {
+        const { data } = await getFileInfo(user);
+        commit('fileInfoSuccess', { ...user, ...data });
+      } catch (err) {
+        const message =
+          (err && err.message) || 'Failed to load package details';
+        commit('fileInfoFailure', message);
+      }
     },
   },
   getters: {

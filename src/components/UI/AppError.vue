@@ -14,6 +14,6 @@ export default {
 .app-err {
   color: var(--white-color);
   text-align: center;
-  background-color: var(--purple-clor);
+  background-color: var(--purple-color);
 }
 </style>
