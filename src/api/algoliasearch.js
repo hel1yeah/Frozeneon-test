@@ -16,10 +16,13 @@ const stdOptionsSearch = {
     'name',
     'owner',
     'version',
+    'downloadsLast30Days',
+    'humanDownloadsLast30Days',
+    'popular',
   ],
 };
 
-function getPackageList(queryString, page = 0, hitsPerPage = 10) {
+function getPackageList(queryString, page = 0, hitsPerPage = 12) {
   const options = { ...stdOptionsSearch, page, hitsPerPage };
   return algoliaIndex.search(queryString, options);
 }
