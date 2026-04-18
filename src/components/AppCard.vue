@@ -123,7 +123,10 @@ export default {
   border-radius: 8px;
   background-color: var(--white-color);
   cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   outline: none;
 
   &:hover,
@@ -246,7 +249,9 @@ export default {
     border: 1px solid #e8ecef;
     background-color: var(--white-color);
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
 
     &:hover {
       background-color: #f4f6f8;

@@ -2,13 +2,16 @@
   "name": "frozeneon-test",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve --open",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
-    "lint": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service lint"
+    "serve": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 8080",
+    "lint": "eslint src --ext .js,.vue --fix"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@mdi/font": "^6.5.95",
@@ -17,38 +20,30 @@
     "core-js": "^3.6.5",
     "firebase": "^9.6.1",
     "lodash": "^4.17.21",
-    "vue": "^2.6.11",
+    "vue": "^2.7.16",
     "vue-router": "^3.2.0",
     "vuetify": "^2.6.1",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-vuex": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.1.0",
-    "cross-env": "^7.0.3",
-    "deepmerge": "^4.2.2",
-    "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^6.2.2",
-    "lint-staged": "^9.5.0",
-    "prettier": "^2.2.1",
-    "sass": "~1.32",
-    "sass-loader": "^8.0.2",
-    "style-resources-loader": "^1.5.0",
-    "vue-template-compiler": "^2.6.11"
+    "@babel/eslint-parser": "^7.28.6",
+    "@vitejs/plugin-vue2": "^2.3.4",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-vue": "^9.33.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.8.3",
+    "sass": "^1.70.0",
+    "simple-git-hooks": "^2.13.1",
+    "vite": "^5.4.21"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
-      "vue-cli-service lint",
-      "git add"
+      "eslint --fix"
     ]
   }
 }

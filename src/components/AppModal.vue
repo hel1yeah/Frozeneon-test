@@ -299,7 +299,9 @@ export default {
     border: 1px solid #e8ecef;
     background-color: var(--white-color);
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
 
     &:hover {
       background-color: #f4f6f8;
